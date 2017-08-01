@@ -14,3 +14,10 @@
 $app->get('/', function () use ($app) {
     return $app->version();
 });
+
+
+$app->get('/users', 'UserController@index');
+$app->post('/users', 'UserController@store');
+$app->get('users/{user_id}', 'UserController@show');
+$app->put('users/{user_id}', 'UserController@update');
+$app->get('users/{user_id}', 'UserController@delete');
