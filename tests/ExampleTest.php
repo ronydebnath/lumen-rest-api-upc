@@ -18,4 +18,11 @@ class ExampleTest extends TestCase
             $this->app->version(), $this->response->getContent()
         );
     }
+
+    public function testHomePage()
+    {
+        
+        $response = $this->call('GET', '/');
+        $this->assertResponseOk();
+    }
 }

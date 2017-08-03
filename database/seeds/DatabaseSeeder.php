@@ -1,32 +1,36 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Database\Eloquent\Model;
+
 use App\User;
 use App\Post;
 use App\Comment;
 
-class DatabaseSeeder extends Seeder
-{
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
-    {
-        // $this->call('UsersTableSeeder');
-        // 
-    	// Disable forreign key check because  trancate() will fail
-        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
+class DatabaseSeeder extends Seeder {
 
-        User::truncate();
-        Post::truncate();
-        Comment::truncate();
+	/**
+	 * Run the database seeds.
+	 *
+	 * @return void
+	 */
+	public function run(){
 
-        factory(App\User::class, 10)->create();
-        factory(App\Post::class, 50)->create();
-        factory(App\Comment::class, 100)->create();
+		// Disable foreign key checking because truncate() will fail
+		DB::statement('SET FOREIGN_KEY_CHECKS = 0');
 
-        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
-    }
+		User::truncate();
+		Post::truncate();
+		Comment::truncate();
+
+		factory(User::class, 10)->create();
+		factory(Post::class, 50)->create();
+		factory(Comment::class, 100)->create();
+
+		$this->call('OAuthClientSeeder');
+
+		// Enable it back
+		DB::statement('SET FOREIGN_KEY_CHECKS = 1');
+	}
+
 }
